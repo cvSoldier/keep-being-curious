@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>not_optimized</title>
+  <link rel="stylesheet" type="text/css" href="not_optimized.css" />
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    let idNum = 1000
+    let fragment = document.createDocumentFragment();
+    for(let i = 0; i < idNum; i++) {
+      var div = document.createElement('div')
+      fragment.appendChild(div);
+
+      var p1 = document.createElement('p')
+      div.appendChild(p1)
+
+      var p2 = document.createElement('p')
+      p1.appendChild(p2)
+
+      var p3 = document.createElement('p')
+      p2.appendChild(p3)
+
+      if (i % 2 === 0) {
+        div.setAttribute('class', 'className')
+      }
+
+      var p = document.createElement('p')
+      p.innerHTML = 'className first tag second'
+      
+      p3.appendChild(p);
+    }
+    document.getElementById('root').appendChild(fragment)
+  </script>
+</body>
+</html>

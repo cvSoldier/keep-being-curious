@@ -1,0 +1,9 @@
+div {
+  width: 100%;
+  font-size: 18px;
+  text-align: center;
+  color: blueviolet;
+}
+div > p > p > p > .className {
+  color: pink;
+}
