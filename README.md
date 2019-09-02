@@ -3,8 +3,8 @@
 Some front-end optimization methods and their positive and negative example code comparison
 
 
-## 1、css解析顺序为从右向左  
-## 2、不要使用行内样式
+1、css解析顺序为从右向左  
+2、不要使用行内样式
 
 
 ## 持续更新中。。。
