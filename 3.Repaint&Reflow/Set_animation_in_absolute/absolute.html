@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>absolute</title>
+  <link rel="stylesheet" type="text/css" href="animation.css" />
+  <style>
+    .base {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <div class="base"></div>
+    <div class="heavyList">
+      <button id="button">Animation On!</button>
+    </div>
+  </div>
+  <script>
+    heavyDOM()
+    document.getElementById('button').addEventListener('click', buttonClick)
+
+
+    function heavyDOM() {
+      let idNum = 1000
+      let fragment = document.createDocumentFragment();
+      for(let i = 0; i < idNum; i++) {
+        var p = document.createElement('p')
+        p.innerHTML = `列表项${i}`
+        
+        fragment.appendChild(p);
+      }
+      document.getElementsByClassName('heavyList')[0].appendChild(fragment)
+    }
+    function buttonClick() {
+      const div = document.getElementsByClassName('base')[0]
+      toggleClass(div)
+      setTimeout(() => {
+        toggleClass(div)
+      }, 9000)
+
+      function toggleClass(el) {
+        if(el.getAttribute('class').includes('animation')) {
+          el.setAttribute('class', 'base')
+        } else {
+          el.setAttribute('class', 'base animation')
+        }
+      }
+    }
+  </script>
+</body>
+</html>

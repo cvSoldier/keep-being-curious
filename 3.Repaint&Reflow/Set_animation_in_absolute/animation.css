@@ -1,0 +1,31 @@
+@-webkit-keyframes recycle{
+  0% {
+    opacity: 0;
+    background-color: #800000;
+    margin-left: 0px;
+  }
+  50% {
+    opacity: 1;
+    background-color: #150080;
+    margin-left: 100px;
+  }
+  100% {
+    opacity: 0;
+    background-color: #800000;
+    margin-left: 0px;
+  }
+}
+
+.base {
+  width: 200px;
+  height: 200px;
+}
+.animation {
+  animation: recycle 1s infinite 0s forwards
+}
+.heavyList {
+  padding-top: 200px;
+}
+#root {
+  position: relative;
+}
