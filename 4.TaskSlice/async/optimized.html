@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>echart optimized</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button id="button">动手</button>
+  <div id="parent"></div>
+  <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts-en.common.js"></script>
+  <script src="options.js"></script>
+  <script>
+    function TaskSlice( num, fn ) {
+      this.init(num, fn)
+    }
+    TaskSlice.prototype = {
+      init: ( num, fn ) => {
+        let index = -1 // 为了在next中index从0开始
+        function next() {
+          index++
+          if(index < num) {
+            fn.call(this, index, next)
+          }
+        }
+        next()
+      }
+    }
+
+    let idNum = 10
+    let fragment = document.createDocumentFragment();
+    for(let i = 0; i < idNum; i++) {
+      var el = document.createElement('div')
+      el.setAttribute('id', i)
+      el.setAttribute('class', 'chart');
+      fragment.appendChild(el);
+    }
+    document.getElementById('parent').appendChild(fragment)
+
+    document.getElementById('button').addEventListener('click', () => {
+      drawCharts(idNum)
+    })
+
+    function drawCharts (idNum) {
+      new TaskSlice(
+        idNum,
+        drawChart
+      )
+    }
+
+    function drawChart(id, cb) {
+      var chart = echarts.init(document.getElementById(id))
+      chart.on('finished', cb)
+      chart.on('finished', () => {
+        chart.off()
+      })
+      chart.setOption(options)
+    }
+
+  </script>
+</body>
+</html>

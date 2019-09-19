@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>echart not optimized</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button id="button">动手</button>
+	<div id="parent"></div>
+	
+  <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts-en.common.js"></script>
+  <script src="options.js"></script>
+	
+	<script>
+    let idNum = 10
+    let fragment = document.createDocumentFragment();
+    for(let i = 0; i < idNum; i++) {
+      var el = document.createElement('div')
+      el.setAttribute('id', i)
+      el.setAttribute('class', 'chart');
+      fragment.appendChild(el);
+    }
+    document.getElementById('parent').appendChild(fragment)
+
+    document.getElementById('button').addEventListener('click', () => {
+			for(let i = 0; i < idNum; i++) {
+				echarts.init(document.getElementById(i)).setOption(options)
+			}
+    })
+  </script>
+</body>
+</html>
