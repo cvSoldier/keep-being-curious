@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>optimized</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="root">
+    <img class="img" src="./static/pre.jpg" data-src="./static/1.jpg">
+    <img class="img" src="./static/pre.jpg" data-src="./static/2.jpg">
+    <img class="img" src="./static/pre.jpg" data-src="./static/3.jpg">
+    <img class="img" src="./static/pre.jpg" data-src="./static/4.jpg">
+    <img class="img" src="./static/pre.jpg" data-src="./static/5.jpg">
+    <img class="img" src="./static/pre.jpg" data-src="./static/6.jpg">
+    <img class="img" src="./static/pre.jpg" data-src="./static/7.jpg">
+  </div>
+  <script src="../5.throttle&debounce/index.js"></script>
+  <script src="index.js"></script>
+  <script>
+    new LazyLoad(document.getElementsByClassName('img'), 100)
+  </script>
+</body>
+</html>
