@@ -13,7 +13,7 @@ Some front-end optimization methods and their positive and negative example code
 4、任务切片
 - 异步切片（以绘制多个echarts为例）
 
-5、节流防抖
+5、节流防抖  
 6、懒加载
 
 ## 持续更新中。。。
