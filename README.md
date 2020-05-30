@@ -24,4 +24,6 @@ Some front-end optimization methods and their positive and negative example code
   - 延迟加载DOM  
   - 时间切片  
   - 不响应式数据  
+- webpack
+  - code-splitting
 ## 持续更新中。。。
