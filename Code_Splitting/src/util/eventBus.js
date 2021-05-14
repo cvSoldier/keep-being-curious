@@ -1,4 +1,4 @@
-class eventBus {
+class EventBus {
   constructor () {
     this.eventList = {}
   }
@@ -12,6 +12,6 @@ class eventBus {
     })
   }
 }
-const eventbus = new eventBus()
+const eventbus = new EventBus()
 
 export default eventbus
