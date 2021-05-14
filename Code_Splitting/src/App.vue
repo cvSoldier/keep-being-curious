@@ -6,11 +6,15 @@
 
 <script>
 import component from './util/extend'
+import eventBus from '@/util/eventBus'
 
 export default {
   name: 'App',
   mounted () {
     console.log('app mounted')
+    eventBus.on('mounted', (dom) => {
+      this.$refs.app.appendChild(dom)
+    })
     import('./components/Wrapper').then(_ => {
       this.$refs.app.appendChild(component(_.default).$mount().$el)
     })
