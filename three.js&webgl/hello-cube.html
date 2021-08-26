@@ -59,6 +59,7 @@
       light.position.set(-1, 2, 4);
       scene.add(light)
       
+      let gofar = false
       function render(time) {
         time *= 0.001
         
@@ -68,7 +69,9 @@
           cube.rotation.x = rot
           cube.rotation.y = rot
         })
-        
+        if ( camera.position.z >= 2 ) gofar = false
+        if ( camera.position.z <= 1 ) gofar = true
+        gofar ? camera.position.z += 0.01 : camera.position.z -= 0.01
         renderer.render(scene, camera)
 
         requestAnimationFrame(render)
