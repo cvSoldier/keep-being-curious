@@ -6,7 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>hello-cube</title>
   <style>
-    body { margin: 0; }
+    html, body { 
+      margin: 0; 
+      height: 100%;
+    }
+    #c {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -59,19 +67,41 @@
       light.position.set(-1, 2, 4);
       scene.add(light)
       
+      // 保证渲染的分辨率和canvas的显示尺寸
+      // canvas元素有两个尺寸，一个是canvas在页面上的显示尺寸，使用css来设置的
+      // 另一个尺寸是canvas本身像素的数量。
+      // 类比图片，有一个128*64的图片然后通过css让他显示为400 * 200
+      // <img src="some128x64image.jpg" style="width:400px; height:200px">
+      function resizeRendererToDisplaySize(renderer) {
+        const canvas = renderer.domElement
+        const width = canvas.clientWidth
+        const height = canvas.clientHeight
+        const needResize = canvas.width !== width || canvas.height !== height
+        if (needResize) {
+          renderer.setSize(width, height, false)
+        }
+        return needResize
+      }
       let gofar = false
       function render(time) {
         time *= 0.001
         
+        // 固定相机宽高比为canvas宽高比
+        if(resizeRendererToDisplaySize(renderer)) {
+          const canvas = renderer.domElement
+          camera.aspect = canvas.clientWidth / canvas.clientHeight
+          camera.updateProjectionMatrix()
+        }
+
         cubes.forEach((cube, index) => {
-          const speed = 1 + (index + 2) * 1
+          const speed = 1 + index * 1
           const rot = time * speed
           cube.rotation.x = rot
           cube.rotation.y = rot
         })
-        if ( camera.position.z >= 2 ) gofar = false
-        if ( camera.position.z <= 1 ) gofar = true
-        gofar ? camera.position.z += 0.01 : camera.position.z -= 0.01
+        // if ( camera.position.z >= 2 ) gofar = false
+        // if ( camera.position.z <= 1 ) gofar = true
+        // gofar ? camera.position.z += 0.01 : camera.position.z -= 0.01
         renderer.render(scene, camera)
 
         requestAnimationFrame(render)
