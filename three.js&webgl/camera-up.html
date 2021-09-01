@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>scene-graph</title>
+  <title>camera-up</title>
   <style>
     html, body {
       height: 100%;
@@ -20,7 +20,10 @@
 <body>
   <canvas id="c"></canvas>
   <script type="module">
-    // http://www.ashortjourney.com/
+    // 好像可以简单理解为
+    // camera.up的作用只是设置坐标系的方向
+    // 比如默认的camera.up.set(0, 1, 0)，就是 z y x， y轴指向上，x向右，z向前
+    // 比如默认的camera.up.set(0, 0, 1)，就是 x z y， z轴指向上，y向右，x向前
     import * as THREE from 'https://cdn.skypack.dev/three@0.131.3'
   
     function main() {
@@ -32,63 +35,24 @@
       const near = 0.1
       const far = 1000
       const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
-      camera.position.set(0, 50, 0)
+      camera.position.set(200, 300, 200)
+      // camera.up.set(1, 0, 0)
       camera.up.set(0, 0, 1)
       camera.lookAt(0, 0, 0)
+      
 
       const scene = new THREE.Scene()
       scene.add( new THREE.AxesHelper( 150 ) )
-      {
-        const color = 0xFFFFFF
-        const intensity = 3
-        const light = new THREE.PointLight(color, intensity)
-        scene.add(light)
-      }
 
-      // an array of objects who's rotation to update
-      const objects = []
-
-      const radius = 1
-      const widthSegments = 6
-      const heightSegments = 6
+      const radius = 20
+      const widthSegments = 20
+      const heightSegments = 20
       const sphereGeometry = new THREE.SphereGeometry(
           radius, widthSegments, heightSegments)
-
-      const solarSystem = new THREE.Object3D()
-      scene.add(solarSystem)
-      objects.push(solarSystem)
-      
       const sunMaterial = new THREE.MeshPhongMaterial({ emissive: 0xFFFF00 })
       const sunMesh = new THREE.Mesh(sphereGeometry, sunMaterial)
-      sunMesh.scale.set(5, 5, 5)
-      solarSystem.add(sunMesh)
-      objects.push(sunMesh)
-
-
-      const earthOrbit = new THREE.Object3D()
-      earthOrbit.position.x = 10
-      solarSystem.add(earthOrbit)
-      objects.push(earthOrbit)
-
-      const earthMaterial = new THREE.MeshPhongMaterial({
-        color: 0x2233ff,
-        emissive: 0x112244
-      })
-      const earthMesh = new THREE.Mesh(sphereGeometry, earthMaterial)
-      earthOrbit.add(earthMesh)
-      objects.push(earthMesh)
-
-      const moonOrbit = new THREE.Object3D()
-      moonOrbit.position.x = 2
-      earthOrbit.add(moonOrbit)
-
-      const moonMaterial = new THREE.MeshPhongMaterial({color: 0x888888, emissive: 0x222222})
-      const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial)
-      moonMesh.scale.set(.5, .5, .5)
-      moonOrbit.add(moonMesh)
-      objects.push(moonMesh)
-
-
+      sunMesh.position.x = 40
+      scene.add(sunMesh)
 
       function resizeRendererToDisplaySize(renderer) {
         const canvas = renderer.domElement
@@ -110,9 +74,7 @@
           camera.updateProjectionMatrix()
         }
 
-        objects.forEach((obj) => {
-          obj.rotation.y = time
-        })
+        sunMesh.rotation.y = time
 
         renderer.render(scene, camera)
 
