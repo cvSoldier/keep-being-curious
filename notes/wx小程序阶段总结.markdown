@@ -49,3 +49,4 @@ export default {
 在pc端 以vue框架为例，登录流程大多数是router的钩子中实现，调用登录接口，对返回值做操作，然后`next()`，来把异步的登录插入到渲染流程中，但是小程序中，因为存在热启动的情况，所以需要把login接口调用写在`main.js`，但是又因为`main.js`里onshow的login接口 不能和`页面.js`里onshow的业务接口顺序调用，就导致业务接口可能带不了login返回的token。  
 解决方法就是封装request的时候写一个异步的任务队列，当前token失效时，调用login，其他接口push到队列中等待，login接口返回后，顺序调用队列中的接口。 
 ## 优化 ##
+移动端因为设备性能和移动网络状况更需要关注性能，首先，小程序的官方文档提供了很多优化的方式([指路](https://developers.weixin.qq.com/miniprogram/dev/framework/performance/))，分包，预加载等等，可以类比web端spa的首屏加载，因为文档很详尽的列举了启动性能和运行性能两方面，我就不再复制粘贴了，想要补充的一点是关于setData的使用，可以借鉴h2首部压缩的思路，在通信之前通过diff数据减少传输的数据量的方法来提高通信效率。([一个github的封装setData库](https://github.com/lpcong/miniprogram-diff))
