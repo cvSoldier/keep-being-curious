@@ -78,3 +78,14 @@ new PrerenderSPAPlugin({
   },
 })
 ```
+3.centos7不能打包的错误
+因为系统缺少chromium的依赖，执行
+```
+yum install pango.x86_64 libXcomposite.x86_64 libXcursor.x86_64 libXdamage.x86_64 libXext.x86_64 libXi.x86_64 libXtst.x86_64 cups-libs.x86_64 libXScrnSaver.x86_64 libXrandr.x86_64 GConf2.x86_64 alsa-lib.x86_64 atk.x86_64 gtk3.x86_64 ipa-gothic-fonts xorg-x11-fonts-100dpi xorg-x11-fonts-75dpi xorg-x11-utils xorg-x11-fonts-cyrillic xorg-x11-fonts-Type1 xorg-x11-fonts-misc -y
+```
+附带一些踩坑时候学的linux命令
+ldd：查看应用缺少的依赖
+grep：正则
+比如`ldd chrome | grep not`会输出chrome所有依赖中not found的部分
+sudo：指使用超级管理员权限运行
+yum install -y： yum自动确认列出的需要安装的依赖，不加-y的话会有一个输入y/n的步骤
