@@ -36,7 +36,7 @@ calcPaneInstances(isForceUpdate = false) {
   </a-tabs>
 </template>
 ```
-使用的时候：
+使用方式：
 ```html
 <!-- 业务.vue -->
 <template>
@@ -57,7 +57,10 @@ import component2 from './component2'
   }
 }
 ```
-又有问题：首先是使用上会有落差，直接props写组件选项对象的方式，和以前注册组件写插槽的方式不同，而且还有一个重量级问题是没办法在 业务.vue 中通过$refs选择pane中渲染的组件，比如有个操作需要在 组件1 打开组件2选项卡并且调用他实例的某个方法，如果是正常使用第三方组件库，<component> 是当作插槽写在 业务.vue 中的。但是按照上面封装的组件，插槽位置只能在<tab-pane></tab-pane>中间，这样的话相当于每个选项卡下面都渲染了所有组件。
+
+又有问题：  
+首先是使用上会有落差，直接props写组件选项对象的方式，和以前注册组件写插槽的方式不同，  
+而且还有一个重量级问题是没办法在 业务.vue 中通过$refs选择pane中渲染的组件，比如有个操作需要在 组件1 打开组件2选项卡并且调用他实例的某个方法，如果是正常使用第三方组件库，\<component> 是当作插槽写在 业务.vue 中的。但是按照上面封装的组件，插槽位置只能在\<tab-pane>\</tab-pane>中间，这样的话相当于每个选项卡下面都渲染了所有组件。
 ```html
 <!-- 正常使用第三方组件库 -->
 <a-tabs v-bind="$attrs" v-on="listenerAll">
@@ -67,7 +70,7 @@ import component2 from './component2'
   </a-tab-pane>
 </a-tabs>
 
-<!-- 按照我们的封装方式添加插槽 -->
+<!-- 如果按照我们的封装方式添加插槽 -->
 <test-tabs>
   <component v-for="pane in panes" :is="pane.componentInstance" />
 </test-tabs>
@@ -80,4 +83,26 @@ import component2 from './component2'
   </a-tab-pane>
 </a-tabs>
 ```
-借鉴上述element处理$slots的方式，使用`render()`代替`<template>`[vue2相关内容](https://cn.vuejs.org/v2/guide/render-function.html#%E6%8F%92%E6%A7%BD)
+借鉴上述element处理$slots的方式，使用`render()`代替`<template>`，[vue2相关内容](https://cn.vuejs.org/v2/guide/render-function.html#%E6%8F%92%E6%A7%BD)
+```javascript
+render() {
+  const { value, panes, $slots, $attrs, listenerAll } = this
+  return (
+    <a-tabs
+      activeKey={value}
+      {...{
+        class: 'tabs-wrapper',
+        props: $attrs,
+        on: listenerAll,
+      }}
+    >
+      {panes.map((pane, index) => (
+        <a-tab-pane key={pane.key} tab={pane.name}>
+          {$slots.default[index]}
+        </a-tab-pane>
+      ))}
+    </a-tabs>
+  )
+}
+```
+给每个tab-pane都放入$slots.default中对应index的内容。
