@@ -1,24 +1,20 @@
 # split-chunks
+vue-cli3默认webpack
+```javascript
+cacheGroups: {
+  common: {
+    name: 'chunk-common',
+    minChunks: 2,
+    priority: -20,
+    chunks: 'initial',
+    reuseExistingChunk: true
+  }
+}
+```
+![analyzer](./READMEAssets/analyzer.png)
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## performance
+home路由  
+![home](./READMEAssets/home.png)  
+about路由  
+![about](./READMEAssets/about.png)
