@@ -45,6 +45,6 @@ npm ERR! This is probably not a problem with npm. There is likely additional log
 
 ![第一次改bug赶上了issue直播](./assets/第一次改bug赶上了issue直播.png)  
 
-好家伙，“2 hours ago”  
+好家伙，“2 hours ago”，开心地留下一个点赞，[issue链接](https://github.com/stacktracejs/error-stack-parser/issues/77#issuecomment-1147017458)
 
 遇到 bug 不要着急，吃个饭睡一觉下午回来 bug 会自己解决。
