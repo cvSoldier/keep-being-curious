@@ -30,6 +30,8 @@ LINUX下不同的文件类型有不同的颜色,
 因此如果只是普通的上传startPM2.sh这个文件，那么上传之后也就是一个普通的文件，不能执行
 你不 chmod +x 颜色就是普通文本的颜色，+x 之后颜色就是绿色的了。chmod -x 就是普通文本颜色，普通文本颜色是不能执行的，执行会报错；chmod +x 就是绿色的可执行文件了。  
 
+![](./assets/gitlab%20CICD/chmod.png)
+
 4.创建一个gitlab-runner用户，之后使用CI/CD时，都是在这个用户下进行的
 ```
 useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
