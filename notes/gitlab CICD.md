@@ -71,3 +71,45 @@ gitlab-runner restart
 ```
 再次执行 `ps aux | grep gitlab-runner`，user改为了root ：  
 ![](./assets/gitlab%20CICD/root.jpg)
+
+### cache 和 artifacts
+cache：存储项目的dependencies，比如node_modules，不需要每次跑pipeline都重新安装。
+
+artifacts：用来在stage之间传递stage生成物，在不同的pipline之间不可用。
+
+开始为了能让node_modules和dist能在各个stage共享，都写在了根节点：
+```
+cache:
+  paths:
+    - node_modules
+    - dist
+```
+导致比如deploy的阶段，即使没有使用到node_modules,也会浪费时间去检查、更新缓存:
+![](./assets/gitlab%20CICD/deploy%20cache.jpg)
+阶段共耗时1m 8s，但是实际执行部署脚本只有2s，检查和更新缓存消耗14s + 50s = 1m 4s。  
+
+其实可以为每个不同的job定制不同的缓存策略：  
+比如install阶段：
+```
+cache:
+  paths:
+    - node_modules/
+  policy: pull-push # 获取和更新缓存
+```
+build阶段：
+```
+cache:
+  paths:
+    - node_modules
+  policy: pull # 只需要获取缓存用来build
+artifacts: # dist不需要写在cache里，只需要在build阶段传递到deploy
+  name: 'bundle'
+  paths: 
+    - dist
+```
+deploy就不用写cache了。  
+修改之后 deploy 阶段仅耗时几秒：  
+![](./assets/gitlab%20CICD/deploy%20without%20cache.jpg)
+
+整体结果快了一倍左右：  
+![](./assets/gitlab%20CICD/result.jpg)
