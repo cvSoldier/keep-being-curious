@@ -115,3 +115,44 @@ deploy就不用写cache了。
 
 整体结果快了一倍左右：  
 ![](./assets/gitlab%20CICD/result.jpg)
+
+### 新的问题
+由于上面build阶段对缓存的策略只有pull，导致不能更新在构建过程中loader或者plugin产生的默认存在 node_modules/.cache的缓存，上面截图时间缩短是因为存在全局的cache还没有失效。  
+首先需要把构建的缓存文件单拎出来：
+```javascript
+// vue.config.js
+chainWebpack: (config) => {
+  const jsRule = config.module.rule('js')
+  jsRule.use('babel-loader').tap((options) => {
+    return {
+      cacheDirectory: '.cache/babel-loader',
+    }
+  })
+  jsRule.use('cache-loader').tap((options) => {
+    options.cacheDirectory = '.cache/cache-loader'
+    return options
+  })
+}
+```
+然后在 .gitignore 中添加缓存目录
+```
+# 打包的缓存文件
+.cache
+```
+这样就把构建产生的缓存文件和node_modules拆开了。  
+再改`.gitlab-ci.yml`：
+```
+build-job:
+  stage: build
+  cache:
+    paths:
+      - .cache
+    policy: pull-push # 默认就是pull-push，再写一遍强调
+```
+只缓存 .cache 目录来使加速 runner 更新自身缓存的速度。
+
+install阶段的 node_modules 的缓存，可以通过 `GIT_CLEAN_FLAGS` 阻止每次检出时删除node_modules：
+```
+variables:
+  GIT_CLEAN_FLAGS: -fdx -e node_modules/ # 控制检出源后 git clean 的默认行为。
+```
