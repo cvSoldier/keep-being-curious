@@ -149,7 +149,10 @@ build-job:
       - .cache
     policy: pull-push # 默认就是pull-push，再写一遍强调
 ```
-只缓存 .cache 目录来使加速 runner 更新自身缓存的速度。
+只缓存 .cache 目录来使加速 runner 更新自身缓存的速度。  
+修改前后pull-push缓存耗时对比：
+![](./assets/gitlab%20CICD/cache%20before.jpg)  
+![](./assets/gitlab%20CICD/cache%20after.jpg)
 
 install阶段的 node_modules 的缓存，可以通过 `GIT_CLEAN_FLAGS` 阻止每次检出时删除node_modules：
 ```
