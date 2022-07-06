@@ -159,3 +159,4 @@ install阶段的 node_modules 的缓存，可以通过 `GIT_CLEAN_FLAGS` 阻止�
 variables:
   GIT_CLEAN_FLAGS: -fdx -e node_modules/ # 控制检出源后 git clean 的默认行为。
 ```
+同时，为了避免服务器上的 node_modules 体积不断变大，可以使用npm ci代替 npm i来安装依赖，npm ci还会根据 package-lock.json 强制锁定版本，避免本地和线上因为依赖版本不一致导致的奇怪bug。
