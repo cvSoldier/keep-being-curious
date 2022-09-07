@@ -160,3 +160,13 @@ variables:
   GIT_CLEAN_FLAGS: -fdx -e node_modules/ # 控制检出源后 git clean 的默认行为。
 ```
 同时，为了避免服务器上的 node_modules 体积不断变大，可以使用npm ci代替 npm i来安装依赖，npm ci还会根据 package-lock.json 强制锁定版本，避免本地和线上因为依赖版本不一致导致的奇怪bug。
+
+### 自动打tag、更新changelog
+
+使用`standard-version`打标签  
+需要注意的有2:  
+1. 更新完changelog会有一个提交，为了避免循环触发pipeline，需要借助 [push options](https://docs.gitlab.com/ee/user/project/push_options.html#push-options-for-gitlab-cicd) 或者 [在commit的msg中携带特殊字符串](https://docs.gitlab.com/ee/ci/pipelines/#skip-a-pipeline) 来跳过skip，任意一个方式就可以。可以参考 [gitlab的官方样例](https://gitlab.com/guided-explorations/gitlab-ci-yml-tips-tricks-and-hacks/commit-to-repos-during-ci/commit-to-repos-during-ci/-/blob/master/.gitlab-ci.yml)，他的样例中 -o ci-skip是错的，应该是ci.skip。
+2. 不能直接 push origin branch-name ，因为ci脚本的本地代码没有分支，需要使用 `HEAD` 关键字，[（文档链接）](https://git-scm.com/docs/git-push#Documentation/git-push.txt-codegitpushoriginHEADmastercode)：  
+   ```
+    git push origin HEAD:branch-name
+   ```
