@@ -9,3 +9,4 @@ npm i ndb -g
 `npm link`, 再执行 `pwd` 并记录当前目录。  
 进入demo项目执行 `npm link ${上一步获取的源码目录}`  
 demo/node_modules目录下出现如下图标表示link成功。
+![图图](./assets/%E4%BD%BF%E7%94%A8ndb%E5%92%8Cnpm_link%E8%B0%83%E8%AF%95%E5%BC%80%E6%BA%90%E5%BA%93.jpg)
