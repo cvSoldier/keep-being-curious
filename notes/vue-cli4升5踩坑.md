@@ -44,5 +44,5 @@ const mkdirp = function (dir, opts = { recursive: true }) {
 }
 ```
 
-### 4、prerender-spa-plugin
+### 4、PreloadPlugin
 cli5关闭了preload插件，[有issue要打开，](https://github.com/vuejs/vue-cli/issues/7206)但是不知道为啥没开。（小声bb：虽然vue-cli的README标明了项目处于维护模式，但是到目前（10月12号）为止最近的一次提交还是9月4号，我寻思这也妹维护啊）
