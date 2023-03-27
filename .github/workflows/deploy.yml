@@ -13,6 +13,6 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         TARGET_REPO: cvSoldier/cvSoldier.github.io
         TARGET_BRANCH: master
-        BUILD_SCRIPT: git config --global --add safe.directory "*" && npm i && npm run build
+        BUILD_SCRIPT: git config --global --add safe.directory "*" && cd docs && npm i && npm run build
         BUILD_DIR: docs/.vuepress/dist/
         COMMIT_MESSAGE:  Auto deploy by the Vuepress-deploy
