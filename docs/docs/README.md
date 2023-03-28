@@ -1,6 +1,6 @@
 ---
 home: true
-# navbar: false
+navbar: false
 layout: BlogHome
 heroText: Hi! welcome!
 heroFullScreen: true
