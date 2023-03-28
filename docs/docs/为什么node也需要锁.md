@@ -1,3 +1,8 @@
+---
+title: 为什么node也需要锁
+date: 2022-07-11
+---
+
 Nodejs is single threaded, and the code execution never gets interrupted inside an event loop, so locking is unnecessary? This is true ONLY IF your critical section can be executed inside a single event loop. However, if you have any async code inside your critical section (it can be simply triggered by any I/O operation, or timer), your critical logic will across multiple event loops, therefore it's not concurrency safe!
 
 Consider the following code

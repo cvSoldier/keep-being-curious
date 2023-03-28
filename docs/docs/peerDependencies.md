@@ -1,3 +1,7 @@
+---
+title: peerDependencies
+date: 2022-11-02
+---
 ### dependencies与peerDependencies区别  
 假设我们当前的项目是MyProject，假设其中有一个依赖包PackageA，该包的package.json文件指定了对PackageB的依赖：  
 ```json

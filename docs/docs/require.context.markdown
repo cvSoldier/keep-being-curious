@@ -1,3 +1,8 @@
+---
+title: require.context
+date: 2021-12-12
+---
+
 ### require.context是什么 ### 
 
 一个webpack的api，通过执行require.context函数获取一个特定的上下文，主要用来实现 **自动化** 导入模块  

@@ -1,3 +1,8 @@
+---
+title: 限制并发请求数量的RequestLimit
+date: 2022-09-12
+---
+
 就是实现一个类似`Promise.all`的函数，但是要求其中的`promise`最多只能同时pending固定数量个。  
 思路是先同步发送 limit 个promise，他们resolve之后就再发送一个来顶上这个位置。
 ```javascript

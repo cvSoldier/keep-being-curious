@@ -1,3 +1,8 @@
+---
+title: http header
+date: 2022-11-16
+---
+
 ### Strict-Transport-Security ###
 一个网站接受一个HTTP的请求，然后跳转到HTTPS，用户可能在开始跳转前，通过没有加密的方式和服务器对话，比如，用户输入http://foo.com或者直接foo.com。这样存在中间人攻击潜在威胁，跳转过程可能被恶意网站利用来直接接触用户信息，而不是原来的加密信息。网站通过HTTP Strict Transport Security通知浏览器，这个网站禁止使用HTTP方式加载，浏览器应该**自动**把所有尝试使用HTTP的请求自动替换为HTTPS请求。
 ### HSTS ###

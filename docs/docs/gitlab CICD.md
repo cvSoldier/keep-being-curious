@@ -1,3 +1,8 @@
+---
+title: gitlab CICD
+date: 2021-06-07
+---
+
 ### 配CI/CD
 
 1.查看linux系统版本  
@@ -30,7 +35,7 @@ LINUX下不同的文件类型有不同的颜色,
 因此如果只是普通的上传startPM2.sh这个文件，那么上传之后也就是一个普通的文件，不能执行
 你不 chmod +x 颜色就是普通文本的颜色，+x 之后颜色就是绿色的了。chmod -x 就是普通文本颜色，普通文本颜色是不能执行的，执行会报错；chmod +x 就是绿色的可执行文件了。  
 
-![](./assets/gitlab%20CICD/chmod.png)
+![](/assets/gitlab%20CICD/chmod.png)
 
 4.创建一个gitlab-runner用户，之后使用CI/CD时，都是在这个用户下进行的
 ```
@@ -87,7 +92,7 @@ cache:
     - dist
 ```
 导致比如deploy的阶段，即使没有使用到node_modules,也会浪费时间去检查、更新缓存:
-![](./assets/gitlab%20CICD/deploy%20cache.jpg)
+![](/assets/gitlab%20CICD/deploy%20cache.jpg)
 阶段共耗时1m 8s，但是实际执行部署脚本只有2s，检查和更新缓存消耗14s + 50s = 1m 4s。  
 
 其实可以为每个不同的job定制不同的缓存策略：  
@@ -111,10 +116,10 @@ artifacts: # dist不需要写在cache里，只需要在build阶段传递到deplo
 ```
 deploy就不用写cache了。  
 修改之后 deploy 阶段仅耗时几秒：  
-![](./assets/gitlab%20CICD/deploy%20without%20cache.jpg)
+![](/assets/gitlab%20CICD/deploy%20without%20cache.jpg)
 
 整体结果快了一倍左右：  
-![](./assets/gitlab%20CICD/result.jpg)
+![](/assets/gitlab%20CICD/result.jpg)
 
 ### 新的问题
 由于上面build阶段对缓存的策略只有pull，导致不能更新在构建过程中loader或者plugin产生的默认存在 node_modules/.cache的缓存，上面截图时间缩短是因为存在全局的cache还没有失效。  

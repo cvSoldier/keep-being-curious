@@ -1,3 +1,7 @@
+---
+title: sentry不能区分主子应用及相关问题总结
+date: 2023-02-20
+---
 ### 问题出现的原因在于：  
 sentry通过覆写window.onerror和window.unhandledrejection的方式来捕获异常，之后不管哪个应用发生异常，都会触发他们的callback被sentry感知并上报到dsn配置的指定项目，而sentry的init不管放在微前端的哪个项目中，都会一股脑上报到某个项目中，无法区分。  
 ### 解决的切入点

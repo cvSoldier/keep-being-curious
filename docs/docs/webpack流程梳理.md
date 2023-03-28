@@ -1,4 +1,8 @@
-![一张大图](./assets/webpack%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86.png)
+---
+title: webpack流程梳理
+date: 2022-10-07
+---
+![一张大图](/assets/webpack%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86.png)
 
 ### Q&A
 Q: Webpack 编译过程会将源码解析为 AST 吗？  

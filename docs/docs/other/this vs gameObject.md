@@ -1,3 +1,7 @@
+---
+title: this vs gameObject
+date: 2022-05-16
+---
 A common cause of confusion is the difference between **this** and **gameObject** in Unity code.
 
 **this** is the current component, so for example if inside Player.cs then `Destroy(this)` would destroy the Player component, but not the game object in the scene of hierarchy.

@@ -1,3 +1,7 @@
+---
+title: vue-cli4升5踩坑
+date: 2022-10-12
+---
 > 升级原因：webpack5 的 cache 太太太香了
 ### 1、npm run build 执行两遍打包
 vue-cli5 默认会为现代浏览器额外打一个 `<script type="module">` 里面使用的包，在cli定义build命令的代码里可以看到：

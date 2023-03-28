@@ -1,3 +1,8 @@
+---
+title: 第一次改bug赶上了issue直播
+date: 2022-06-06
+---
+
 *10:49*  
 运维：帮我看看这个项目的报错  
 ```
@@ -43,7 +48,7 @@ npm ERR! This is probably not a problem with npm. There is likely additional log
 
 去github的issue里找，在error-stack-parser里一搜搜出了完全一致的问题，再点进去  
 
-![第一次改bug赶上了issue直播](./assets/第一次改bug赶上了issue直播.png)  
+![第一次改bug赶上了issue直播](/assets/第一次改bug赶上了issue直播.png)  
 
 好家伙，“2 hours ago”，开心地留下一个点赞，[issue链接](https://github.com/stacktracejs/error-stack-parser/issues/77#issuecomment-1147017458)
 
