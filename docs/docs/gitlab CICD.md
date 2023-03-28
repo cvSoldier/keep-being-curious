@@ -1,6 +1,6 @@
 ---
 title: gitlab CICD
-date: 2021-06-07
+date: 2022-06-07
 ---
 
 ### 配CI/CD
@@ -35,7 +35,7 @@ LINUX下不同的文件类型有不同的颜色,
 因此如果只是普通的上传startPM2.sh这个文件，那么上传之后也就是一个普通的文件，不能执行
 你不 chmod +x 颜色就是普通文本的颜色，+x 之后颜色就是绿色的了。chmod -x 就是普通文本颜色，普通文本颜色是不能执行的，执行会报错；chmod +x 就是绿色的可执行文件了。  
 
-![](/assets/gitlab%20CICD/chmod.png)
+![](/assets/gitlabCICD/chmod.png)
 
 4.创建一个gitlab-runner用户，之后使用CI/CD时，都是在这个用户下进行的
 ```
@@ -69,7 +69,7 @@ ERROR: Job failed: exit status 1
 ps aux | grep gitlab-runner
 ```
 结果：  
-![](./assets/gitlab%20CICD/github-runner.jpg)
+![](/assets/gitlabCICD/github-runner.jpg)
 顺序执行下面命令
 ```
 gitlab-runner uninstall
@@ -77,7 +77,7 @@ gitlab-runner install --user root
 gitlab-runner restart
 ```
 再次执行 `ps aux | grep gitlab-runner`，user改为了root ：  
-![](./assets/gitlab%20CICD/root.jpg)
+![](/assets/gitlabCICD/root.jpg)
 
 ### cache 和 artifacts
 cache：存储项目的dependencies，比如node_modules，不需要每次跑pipeline都重新安装。
@@ -92,7 +92,7 @@ cache:
     - dist
 ```
 导致比如deploy的阶段，即使没有使用到node_modules,也会浪费时间去检查、更新缓存:
-![](/assets/gitlab%20CICD/deploy%20cache.jpg)
+![](/assets/gitlabCICD/deploy-cache.jpg)
 阶段共耗时1m 8s，但是实际执行部署脚本只有2s，检查和更新缓存消耗14s + 50s = 1m 4s。  
 
 其实可以为每个不同的job定制不同的缓存策略：  
@@ -116,10 +116,10 @@ artifacts: # dist不需要写在cache里，只需要在build阶段传递到deplo
 ```
 deploy就不用写cache了。  
 修改之后 deploy 阶段仅耗时几秒：  
-![](/assets/gitlab%20CICD/deploy%20without%20cache.jpg)
+![](/assets/gitlabCICD/deploy-without-cache.jpg)
 
 整体结果快了一倍左右：  
-![](/assets/gitlab%20CICD/result.jpg)
+![](/assets/gitlabCICD/result.jpg)
 
 ### 新的问题
 由于上面build阶段对缓存的策略只有pull，导致不能更新在构建过程中loader或者plugin产生的默认存在 node_modules/.cache的缓存，上面截图时间缩短是因为存在全局的cache还没有失效。  
@@ -156,8 +156,8 @@ build-job:
 ```
 只缓存 .cache 目录来使加速 runner 更新自身缓存的速度。  
 修改前后pull-push缓存耗时对比：
-![](./assets/gitlab%20CICD/cache%20before.jpg)  
-![](./assets/gitlab%20CICD/cache%20after.jpg)
+![](/assets/gitlabCICD/cache-before.jpg)  
+![](/assets/gitlabCICD/cache-after.jpg)
 
 install阶段的 node_modules 的缓存，可以通过 `GIT_CLEAN_FLAGS` 阻止每次检出时删除node_modules：
 ```
